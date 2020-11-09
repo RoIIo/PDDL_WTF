@@ -1,0 +1,55 @@
+(define
+    (domain ciasto)
+    (:types skladnik masa upieczone)
+    (:requirements :adl)
+    (:predicates
+        (in-machine ?what)
+        (ingredient ?ing)
+        (is-component-of ?ing ?what)
+        (is-mixed ?what)
+        (is-baked ?what)
+    )
+    
+    (:action put
+        :parameters (?x - skladnik)
+        :precondition (ingredient ?x)
+        :effect (in-machine ?x)
+    )
+      (:action mix
+        :parameters (?y - masa)
+        :precondition (forall (?x - skladnik) (in-machine ?x))
+        :effect (and
+                        (is-mixed ?y)
+                        (in-machine ?y)
+                        (forall (?x - skladnik) (is-component-of ?x ?y))
+                )
+    )
+    (:action bake
+        :parameters (?x - masa ?y - upieczone)
+        :precondition (is-mixed ?x)
+        :effect (in-machine ?y)
+    )
+
+)
+
+
+
+(define (problem skladnikow)
+	(:domain ciasto)
+	(:objects egg flour soda water - skladnik dough - masa cake - upieczone)
+	(:init
+		(ingredient egg)
+		(ingredient flour)
+		(ingredient soda)
+		(ingredient water)
+	)
+	(:goal
+	    (and
+	        (is-component-of egg dough)
+	        (is-component-of flour dough)
+	        (is-component-of soda dough)
+	        (is-component-of water dough)
+	        (in-machine cake)
+	    )
+	)
+)
