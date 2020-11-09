@@ -1,0 +1,43 @@
+(define
+    (:domain ciasto)
+    (:requirements :adl)
+    (:predicates
+        (in-machine ?what)
+        (ingredient ?ing)
+        (is-component-of ?ing ?what)
+    )
+    
+    (:action put
+        :parameters (?x)
+        :precondition (ingredient ?x)
+        :effect (in-machine ?x)
+    )
+    
+    (:action mix
+        :precondition (forall is-component-of(?x, ciasto)) (in-machine ?x))
+        :effect
+    )
+    
+    (:action bake
+        
+    )
+)
+
+(define (problem skladnikow)
+	(:domain ciasto)
+	(:objects egg flour soda water dough cake)
+	(:init
+		(ingredient egg)
+		(ingredient flour)
+		(ingredient soda)
+		(ingredient water)
+		(is-component-of egg dough)
+		(is-component-of flour dough)
+		(is-component-of soda dough
+		(is-component-of water dough)
+		
+	)
+	(:goal
+		; zrob ciasto
+	)
+)
