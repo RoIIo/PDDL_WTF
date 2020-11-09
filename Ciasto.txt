@@ -5,6 +5,8 @@
         (in-machine ?what)
         (ingredient ?ing)
         (is-component-of ?ing ?what)
+        (is-mixed ?what)
+        (is-baked ?what)
     )
     
     (:action put
@@ -15,11 +17,12 @@
     
     (:action mix
         :precondition (forall is-component-of(?x, ciasto)) (in-machine ?x))
-        :effect
+        :effect (is-mixed dough)
     )
     
     (:action bake
-        
+        :precondition (is-mixed dough)
+        :effect (is-baked cake)
     )
 )
 
@@ -38,6 +41,6 @@
 		
 	)
 	(:goal
-		; zrob ciasto
+		(is-baked cake)
 	)
 )
